@@ -1,0 +1,253 @@
+import com.google.gson.Gson
+import kotlinx.coroutines.*
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
+import java.net.CookieManager
+
+class Client(private val cookieManager: CookieManager) {
+    private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    private val client = OkHttpClient.Builder()
+        .cookieJar(JavaNetCookieJar(cookieManager))
+        .build()
+    private var result = ""
+    data class UserData (
+        val nickName: String,
+        val id: String,
+        val category: String
+    )
+    data class  ContentData(
+        val id: Long,
+        val title: String,
+        val content: String,
+        val quiz: String,
+        val selection1: String,
+        val selection2: String,
+        val selection3: String,
+        val selection4: String,
+        val answer: Int
+    )
+
+    fun loginCheck(onComplete: (String) -> Unit) {
+        val request = Request.Builder()
+            .url("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app/loginCheck")
+            .get()
+            .build()
+        coroutineScope.launch(Dispatchers.IO) {
+            try {
+                val response = client.newCall(request).execute()
+
+                if (response.isSuccessful) {
+                    val responseData = response.body?.string()
+                    result = responseData ?: ""
+                } else {
+                    // 오류 처리
+                    result = "loginCheck error"
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            onComplete(result)
+        }
+    }
+
+    fun login(onComplete: (String) -> Unit, id: String, password: String){
+        val requestBody = FormBody.Builder()
+            .add("id", id)
+            .add("pw", password)
+            .build()
+        val request = Request.Builder()
+            .url("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app/login")
+            .post(requestBody)
+            .build()
+        coroutineScope.launch(Dispatchers.IO) {
+            try {
+                val response = client.newCall(request).execute()
+
+                if (response.isSuccessful) {
+                    val responseData = response.body?.string()
+                    result = responseData ?: ""
+                    // 응답 데이터 처리
+                } else {
+                    result = "login error"
+                    // 오류 처리
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            onComplete(result)
+        }
+    }
+    fun signUp(nickName: String, newId: String, newPassword: String, category: String){
+        val requestBody = FormBody.Builder()
+            .add("nickName", nickName)
+            .add("id", newId)
+            .add("pw", newPassword)
+            .add("category", category)
+            .build()
+
+        val request = Request.Builder()
+            .url("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app/signUp")
+            .post(requestBody)
+            .build()
+        coroutineScope.launch(Dispatchers.IO) {
+            try {
+                val response = client.newCall(request).execute()
+
+                if (response.isSuccessful) {
+                    val responseData = response.body?.string()
+                    println(responseData)
+                    // 응답 데이터 처리
+                } else {
+                    println("error")
+                    // 오류 처리
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+    fun logout(){
+        val request = Request.Builder()
+            .url("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app/logout")
+            .get()
+            .build()
+        coroutineScope.launch(Dispatchers.IO) {
+            try {
+                val response = client.newCall(request).execute()
+
+                if (response.isSuccessful) {
+                    val responseData = response.body?.string()
+                    result = responseData ?: ""
+                    println(result)
+                } else {
+                    // 오류 처리
+                    result = "logout error"
+                    println(result)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+    fun getUserInfo(onComplete: (UserData) -> Unit) {
+        val request = Request.Builder()
+            .url("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app/userInfo")
+            .get()
+            .build()
+
+        coroutineScope.launch(Dispatchers.IO) {
+            try {
+                val response: Response = client.newCall(request).execute()
+                val responseBody = response.body?.string()
+
+                if (response.isSuccessful && responseBody != null) {
+                    val gson = Gson()
+                    val readData: UserData =
+                        gson.fromJson(responseBody, UserData::class.java)
+
+                    onComplete(readData)
+                } else {
+                    println("컨텐츠 불러오기 Error: ${response.code} ${response.message}")
+                    throw Exception("getUserInfo() failed")
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    println("Exception: ${e.message}")
+                }
+            }
+        }
+    }
+
+    fun getContent(onComplete: (ContentData) -> Unit, category: String) {
+        val request = Request.Builder()
+            .url("https://port-0-drizzling-backend-4c7jj2blhhwli58.sel4.cloudtype.app/quiz/get/" + category)
+            .build()
+
+        coroutineScope.launch(Dispatchers.IO) {
+            try {
+                val response: Response = client.newCall(request).execute()
+                val responseBody = response.body?.string()
+
+                if (response.isSuccessful && responseBody != null) {
+                    val gson = Gson()
+                    val readData: ContentData =
+                        gson.fromJson(responseBody, ContentData::class.java)
+
+                    onComplete(readData)
+                } else {
+                    println("컨텐츠 불러오기 Error: ${response.code} ${response.message}")
+                    throw Exception("getContent() failed")
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    println("Exception: ${e.message}")
+                }
+            }
+        }
+    }
+
+    fun checkLearningStatus(onComplete: (Boolean) -> Unit) {
+        val request = Request.Builder()
+            .url("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app/reportCheck")
+            .get()
+            .build()
+
+        coroutineScope.launch(Dispatchers.IO) {
+            try {
+                val response: Response = client.newCall(request).execute()
+                val responseBody = response.body?.string()
+
+                if (response.isSuccessful && responseBody != null) {
+                    val learningStatus = responseBody.toBoolean()
+                    println("learning status: " + learningStatus.toString())
+
+                    onComplete(learningStatus)
+                } else {
+                    println("컨텐츠 학습 여부 확인 Error: ${response.code} ${response.message}")
+                    throw Exception("checkLearningStatus() failed")
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    println("Exception: ${e.message}")
+                }
+            }
+        }
+    }
+
+    fun leaningComplete(onComplete: (Boolean) -> Unit) {
+        val requestBody = JSONObject().apply {
+        }.toString().toRequestBody("application/json".toMediaType())
+
+        val request = Request.Builder()
+            .url("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app/reportCorrect")
+            .put(requestBody)
+            .build()
+
+        coroutineScope.launch(Dispatchers.IO) {
+            try {
+                val response: Response = client.newCall(request).execute()
+                val responseBody = response.body?.string()
+
+                if (response.isSuccessful && responseBody != null) {
+                    result = responseBody.toString()
+                    println(result)
+
+                    if (result.equals("update success"))
+                        onComplete(true)
+                    else
+                        onComplete(false)
+                } else {
+                    println("학습 완료 등록 Error: ${response.code} ${response.message}")
+                    throw Exception("learningComplete() failed")
+                    onComplete(false)
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    println("Exception: ${e.message}")
+                }
+            }
+        }
+    }
+}
