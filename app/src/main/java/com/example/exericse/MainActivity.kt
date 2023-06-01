@@ -5,11 +5,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        val cookieManager = (applicationContext as Cookie).cookieManager
-        val client = Client(cookieManager)
+        //val cookieManager = (applicationContext as Cookie).cookieManager
+        val cookie = Cookie()
+        val client = Client(cookie)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,11 +30,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
     override fun onResume() {
-        val cookieManager = (applicationContext as Cookie).cookieManager
-        val client = Client(cookieManager)
+        //val cookieManager = (applicationContext as Cookie).cookieManager
+        val cookie = Cookie()
+        val client = Client(cookie)
 
         super.onResume()
-        client.loginCheck { result ->
+        client.loginCheck({ result ->
             println(result)
             if (!result.equals("not login")) {
                 println("로그인 성공")
@@ -40,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 println("로그인 실패")
             }
-        }
+        }, this)
     }
 }
 

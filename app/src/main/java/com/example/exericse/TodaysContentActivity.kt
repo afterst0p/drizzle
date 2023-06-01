@@ -11,6 +11,8 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -54,8 +56,9 @@ class TodaysContentActivity : AppCompatActivity() {
         }
         viewContentConstraint.startAnimation(fadeInAnimation)
 
-        val cookieManager = (applicationContext as Cookie).cookieManager
-        val client = Client(cookieManager);
+        //val cookieManager = (applicationContext as Cookie).cookieManager
+        val cookie = Cookie()
+        val client = Client(cookie);
 
         // Quiz 라디오 버튼 Listener
         viewSelectionGroup.setOnCheckedChangeListener { group, checkedId ->

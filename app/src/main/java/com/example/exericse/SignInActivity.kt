@@ -23,9 +23,9 @@ class SignInActivity : AppCompatActivity() {
             //val savedPassword = getSharedPreferences("MY_APP_PREFERENCES", Context.MODE_PRIVATE).getString("PASSWORD", null)
             // 자동로그인 체크하면 여기서 가져온다음 로그인
 
-            val cookieManager = (applicationContext as Cookie).cookieManager
-            val client = Client(cookieManager)
-            client.login( { result ->
+            val cookie = Cookie()
+            val client = Client(cookie)
+            client.login({ result ->
                 if(result.equals("login success")){
                     println("로그인 성공")
                     val intent = Intent(this, TodaysContentActivity::class.java)
@@ -34,7 +34,7 @@ class SignInActivity : AppCompatActivity() {
                 else{
                     println(result)
                 }
-            }, id, password)
+            }, this, id, password)
 
 
 

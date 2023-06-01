@@ -1,3 +1,5 @@
+import android.content.Context
+import com.example.exericse.Cookie
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import okhttp3.*
@@ -6,10 +8,11 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.net.CookieManager
 
-class Client(private val cookieManager: CookieManager) {
+
+class Client(private val cookie: Cookie) {
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
     private val client = OkHttpClient.Builder()
-        .cookieJar(JavaNetCookieJar(cookieManager))
+        .cookieJar(JavaNetCookieJar(cookie.cookieManager))
         .build()
     private var result = ""
     data class UserData (
@@ -29,9 +32,11 @@ class Client(private val cookieManager: CookieManager) {
         val answer: Int
     )
 
-    fun loginCheck(onComplete: (String) -> Unit) {
+    fun loginCheck( onComplete: (String) -> Unit, context: Context) {
+        val loadedCookie = cookie.loadCookie(context, "https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app")
         val request = Request.Builder()
             .url("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app/loginCheck")
+            .addHeader("Cookie", loadedCookie.toString())
             .get()
             .build()
         coroutineScope.launch(Dispatchers.IO) {
@@ -48,11 +53,19 @@ class Client(private val cookieManager: CookieManager) {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+            val cookies = cookie.getCookie("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app")
+            cookies.forEach { httpCookie ->
+                cookie.saveCookie(
+                    context,
+                    "https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app",
+                    httpCookie
+                )
+            }
             onComplete(result)
         }
     }
 
-    fun login(onComplete: (String) -> Unit, id: String, password: String){
+    fun login(onComplete: (String) -> Unit, context: Context,  id: String, password: String){
         val requestBody = FormBody.Builder()
             .add("id", id)
             .add("pw", password)
@@ -75,6 +88,14 @@ class Client(private val cookieManager: CookieManager) {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+            }
+            val cookies = cookie.getCookie("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app")
+            cookies.forEach { httpCookie ->
+                cookie.saveCookie(
+                    context,
+                    "https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app",
+                    httpCookie
+                )
             }
             onComplete(result)
         }
@@ -108,7 +129,7 @@ class Client(private val cookieManager: CookieManager) {
             }
         }
     }
-    fun logout(){
+    fun logout(context: Context){
         val request = Request.Builder()
             .url("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app/logout")
             .get()
@@ -129,6 +150,14 @@ class Client(private val cookieManager: CookieManager) {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+        val cookies = cookie.getCookie("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app")
+        cookies.forEach { httpCookie ->
+            cookie.saveCookie(
+                context,
+                "https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app",
+                httpCookie
+            )
         }
     }
     fun getUserInfo(onComplete: (UserData) -> Unit) {

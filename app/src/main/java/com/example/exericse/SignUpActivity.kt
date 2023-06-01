@@ -27,8 +27,9 @@ class SignUpActivity : AppCompatActivity() {
             val category = categoryEditText.text.toString()
             val nickName = nameEditText.text.toString()
 
-            val cookieManager = (applicationContext as Cookie).cookieManager
-            val client = Client(cookieManager)
+            //val cookieManager = (applicationContext as Cookie).cookieManager
+            val cookie = Cookie()
+            val client = Client(cookie)
             client.signUp(nickName, newId, newPassword, category)
 
 
