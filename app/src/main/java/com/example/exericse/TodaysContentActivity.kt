@@ -5,6 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.view.Menu
+import android.view.MenuItem
 import android.view.animation.AlphaAnimation
 import android.widget.Button
 import android.widget.RadioButton
@@ -199,5 +201,24 @@ class TodaysContentActivity : AppCompatActivity() {
         Handler().postDelayed({
             backPressedOnce = false
         }, 2000)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar_todays_content, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+//            R.id.action_settings -> {
+//                Toast.makeText(
+//                    this@TodaysContentActivity,
+//                    " 설정",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//                return true
+//            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

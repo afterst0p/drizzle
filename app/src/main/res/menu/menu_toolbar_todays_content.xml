@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_content"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="컨텐츠 보기"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_chat"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="채팅방 열기"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_push"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="푸시 보내기"
+        app:showAsAction="never" />
+
+</menu>

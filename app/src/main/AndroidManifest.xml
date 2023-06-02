@@ -29,7 +29,7 @@
         <activity android:name=".SignInActivity"
             android:label="Sign In"/>
         <activity android:name=".TodaysContentActivity"
-            android:label="Todays Content"/>
+            android:label="오늘의 지식"/>
         <service android:name=".TimeService" />
     </application>
 
