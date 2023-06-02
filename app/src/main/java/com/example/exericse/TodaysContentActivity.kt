@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import com.example.exericse.MainActivity2
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -210,14 +211,10 @@ class TodaysContentActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-//            R.id.action_settings -> {
-//                Toast.makeText(
-//                    this@TodaysContentActivity,
-//                    " 설정",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//                return true
-//            }
+            R.id.action_chat -> {
+                val intent = Intent(this, MainActivity2::class.java)
+                startActivity(intent)
+            }
         }
         return super.onOptionsItemSelected(item)
     }

@@ -30,6 +30,8 @@
             android:label="Sign In"/>
         <activity android:name=".TodaysContentActivity"
             android:label="오늘의 지식"/>
+        <activity android:name=".MainActivity2"
+            android:label="채팅방"/>
         <service android:name=".TimeService" />
     </application>
 
