@@ -16,5 +16,10 @@
         android:icon="@drawable/ic_launcher_foreground"
         android:title="푸시 보내기"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_logout"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="로그아웃"
+        app:showAsAction="never" />
 
 </menu>

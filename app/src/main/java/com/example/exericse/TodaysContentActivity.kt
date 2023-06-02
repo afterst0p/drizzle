@@ -215,6 +215,12 @@ class TodaysContentActivity : AppCompatActivity() {
                 val intent = Intent(this, MainActivity2::class.java)
                 startActivity(intent)
             }
+            R.id.action_logout -> {
+                val cookie = Cookie()
+                val client = Client(cookie);
+                client.logout(this@TodaysContentActivity)
+                finish()
+            }
         }
         return super.onOptionsItemSelected(item)
     }

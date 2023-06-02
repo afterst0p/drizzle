@@ -130,7 +130,9 @@ class Client(private val cookie: Cookie) {
         }
     }
     fun logout(context: Context){
+        val loadedCookie = cookie.loadCookie(context, "https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app")
         val request = Request.Builder()
+            .addHeader("Cookie", loadedCookie.toString())
             .url("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app/logout")
             .get()
             .build()
