@@ -160,10 +160,12 @@ class Client(private val cookie: Cookie) {
             )
         }
     }
-    fun getUserInfo(onComplete: (UserData?) -> Unit) {
+    fun getUserInfo(context: Context, onComplete: (UserData?) -> Unit) {
         var readData: UserData? = null
 
+        val loadedCookie = cookie.loadCookie(context, "https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app")
         val request = Request.Builder()
+            .addHeader("Cookie", loadedCookie.toString())
             .url("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app/userInfo")
             .get()
             .build()
@@ -190,10 +192,12 @@ class Client(private val cookie: Cookie) {
         }
     }
 
-    fun getContent(onComplete: (ContentData?) -> Unit, category: String) {
+    fun getContent(context: Context, onComplete: (ContentData?) -> Unit, category: String) {
         var readData: ContentData? = null
 
+        val loadedCookie = cookie.loadCookie(context, "https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app")
         val request = Request.Builder()
+            .addHeader("Cookie", loadedCookie.toString())
             .url("https://port-0-drizzling-backend-4c7jj2blhhwli58.sel4.cloudtype.app/quiz/get/" + category)
             .build()
 
@@ -219,10 +223,12 @@ class Client(private val cookie: Cookie) {
         }
     }
 
-    fun checkLearningStatus(onComplete: (Boolean?) -> Unit) {
+    fun checkLearningStatus(context: Context, onComplete: (Boolean?) -> Unit) {
         var learningStatus: Boolean? = null
 
+        val loadedCookie = cookie.loadCookie(context, "https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app")
         val request = Request.Builder()
+            .addHeader("Cookie", loadedCookie.toString())
             .url("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app/reportCheck")
             .get()
             .build()
@@ -249,13 +255,15 @@ class Client(private val cookie: Cookie) {
         }
     }
 
-    fun leaningComplete(onComplete: (Boolean) -> Unit) {
+    fun leaningComplete(context: Context, onComplete: (Boolean) -> Unit) {
         var sumbitSuccess: Boolean = false
 
+        val loadedCookie = cookie.loadCookie(context, "https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app")
         val requestBody = JSONObject().apply {
         }.toString().toRequestBody("application/json".toMediaType())
 
         val request = Request.Builder()
+            .addHeader("Cookie", loadedCookie.toString())
             .url("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app/reportCorrect")
             .put(requestBody)
             .build()

@@ -79,7 +79,7 @@ class TodaysContentActivity : AppCompatActivity() {
                 ).show()
                 println("Correct Answer")
 
-                client.leaningComplete({ success ->
+                client.leaningComplete(this@TodaysContentActivity, { success ->
                     runOnUiThread {
                         if (success == true) {
                             viewCheckAnswerButton.text = "학습 완료"
@@ -114,7 +114,7 @@ class TodaysContentActivity : AppCompatActivity() {
         }
 
         // 유저 정보 불러오기
-        client.getUserInfo({ userData ->
+        client.getUserInfo(this@TodaysContentActivity, { userData ->
             runOnUiThread {
                 if (userData == null) {
                     Toast.makeText(
@@ -127,7 +127,7 @@ class TodaysContentActivity : AppCompatActivity() {
                     println(userCategory)
 
                     // 컨텐츠 정보 불러오기
-                    client.getContent({ contentData ->
+                    client.getContent(this@TodaysContentActivity, { contentData ->
                         runOnUiThread {
                             if (contentData == null) {
                                 Toast.makeText(
@@ -146,7 +146,7 @@ class TodaysContentActivity : AppCompatActivity() {
                                 quizAnswer = contentData.answer
 
                                 // 사용자 컨텐츠 학습 여부 확인
-                                client.checkLearningStatus({ learningStatus ->
+                                client.checkLearningStatus(this@TodaysContentActivity, { learningStatus ->
                                     runOnUiThread {
                                         if (learningStatus == null) {
                                             Toast.makeText(
