@@ -100,7 +100,7 @@ class TodaysContentActivity : AppCompatActivity() {
                         } else {
                             Toast.makeText(
                                 this@TodaysContentActivity,
-                                "학습 상태 등록에 실패했습니다. 다시 제출해주세요.",
+                                "학습 상태 등록에 실패했습니다.\n다시 제출해주세요.",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -122,7 +122,7 @@ class TodaysContentActivity : AppCompatActivity() {
                 if (userData == null) {
                     Toast.makeText(
                         this@TodaysContentActivity,
-                        "유저 정보 불러오기에 실패하였습니다. 앱을 재시작 해주세요.",
+                        "유저 정보 불러오기에 실패하였습니다.\n앱을 재시작 해주세요.",
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
@@ -135,7 +135,7 @@ class TodaysContentActivity : AppCompatActivity() {
                             if (contentData == null) {
                                 Toast.makeText(
                                     this@TodaysContentActivity,
-                                    "컨텐츠 불러오기에 실패하였습니다. 앱을 재시작 해주세요.",
+                                    "컨텐츠 불러오기에 실패하였습니다.\n앱을 재시작 해주세요.",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             } else {
@@ -154,7 +154,7 @@ class TodaysContentActivity : AppCompatActivity() {
                                         if (learningStatus == null) {
                                             Toast.makeText(
                                                 this@TodaysContentActivity,
-                                                " 학습 상태 불러오기에 실패하였습니다. 앱을 재시작 해주세요.",
+                                                " 학습 상태 불러오기에 실패하였습니다.\n앱을 재시작 해주세요.",
                                                 Toast.LENGTH_SHORT
                                             ).show()
                                         } else if (learningStatus == true) {

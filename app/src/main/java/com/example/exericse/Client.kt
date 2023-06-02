@@ -100,7 +100,7 @@ class Client(private val cookie: Cookie) {
             onComplete(result)
         }
     }
-    fun signUp(nickName: String, newId: String, newPassword: String, category: String){
+    fun signUp(nickName: String, newId: String, newPassword: String, category: String, onComplete: (Boolean?) -> Unit){
         val requestBody = FormBody.Builder()
             .add("nickName", nickName)
             .add("id", newId)
@@ -119,13 +119,20 @@ class Client(private val cookie: Cookie) {
                 if (response.isSuccessful) {
                     val responseData = response.body?.string()
                     println(responseData)
+
+                    if (responseData.equals("id existed"))
+                        onComplete(false)
+                    else
+                        onComplete(true)
                     // 응답 데이터 처리
                 } else {
                     println("error")
+                    onComplete(null)
                     // 오류 처리
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+                onComplete(null)
             }
         }
     }

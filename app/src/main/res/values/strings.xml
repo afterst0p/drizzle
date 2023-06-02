@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">Exericse</string>
+    <string name="app_name">가랑비</string>
 
     <string-array name="category_items">
+        <item>카테고리</item>
         <item>예술</item>
         <item>철학</item>
     </string-array>

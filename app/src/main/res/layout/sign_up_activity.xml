@@ -6,69 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".SignUpActivity">
 
-        <Button
-            android:id="@+id/sign_up_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="144dp"
-            android:text="Sign Up"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <EditText
             android:id="@+id/new_id"
             android:layout_width="200dp"
             android:layout_height="50dp"
-            android:layout_marginTop="129dp"
-            android:layout_marginBottom="144dp"
+            android:layout_marginTop="100dp"
             android:ems="10"
-            android:hint="New Id"
+            android:hint="ID"
             android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/category"
-            app:layout_constraintEnd_toEndOf="@+id/new_password"
-            app:layout_constraintStart_toStartOf="@+id/new_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/new_password"
             android:layout_width="200dp"
             android:layout_height="50dp"
-            android:layout_marginStart="88dp"
-            android:layout_marginTop="220dp"
+            android:layout_marginTop="50dp"
             android:ems="10"
-            android:hint="New Password"
+            android:hint="비밀번호"
             android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/new_id"/>
 
         <Spinner
-            android:id="@+id/category"
+            android:id="@+id/new_category"
             android:layout_width="200dp"
             android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="41dp"
+            android:layout_marginTop="50dp"
             android:ems="10"
             android:hint="Category"
             android:inputType="textShortMessage"
             android:spinnerMode="dropdown"
-            app:layout_constraintBottom_toTopOf="@+id/name"
-            app:layout_constraintStart_toStartOf="@+id/name"
-            app:layout_constraintTop_toBottomOf="@+id/new_id" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_password"/>
 
         <EditText
-            android:id="@+id/name"
+            android:id="@+id/new_name"
             android:layout_width="200dp"
             android:layout_height="50dp"
-            android:layout_marginBottom="282dp"
+            android:layout_marginTop="50dp"
             android:ems="10"
-            android:hint="Name"
+            android:hint="닉네임"
             android:inputType="textPersonName"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.417"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/category" />
+            app:layout_constraintTop_toBottomOf="@id/new_category"/>
+
+        <Button
+            android:id="@+id/sign_up_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:text="가입"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_name"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
