@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <application
         android:name=".Cookie"
         android:allowBackup="true"
@@ -29,6 +30,7 @@
             android:label="Sign In"/>
         <activity android:name=".TodaysContentActivity"
             android:label="Todays Content"/>
+        <service android:name=".TimeService" />
     </application>
 
 </manifest>
