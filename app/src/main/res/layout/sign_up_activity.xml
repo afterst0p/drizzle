@@ -43,7 +43,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <Spinner
             android:id="@+id/category"
             android:layout_width="200dp"
             android:layout_height="50dp"
@@ -51,7 +51,8 @@
             android:layout_marginBottom="41dp"
             android:ems="10"
             android:hint="Category"
-            android:inputType="textPersonName"
+            android:inputType="textShortMessage"
+            android:spinnerMode="dropdown"
             app:layout_constraintBottom_toTopOf="@+id/name"
             app:layout_constraintStart_toStartOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@+id/new_id" />

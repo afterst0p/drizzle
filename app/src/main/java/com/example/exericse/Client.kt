@@ -160,7 +160,9 @@ class Client(private val cookie: Cookie) {
             )
         }
     }
-    fun getUserInfo(onComplete: (UserData) -> Unit) {
+    fun getUserInfo(onComplete: (UserData?) -> Unit) {
+        var readData: UserData? = null
+
         val request = Request.Builder()
             .url("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app/userInfo")
             .get()
@@ -173,10 +175,7 @@ class Client(private val cookie: Cookie) {
 
                 if (response.isSuccessful && responseBody != null) {
                     val gson = Gson()
-                    val readData: UserData =
-                        gson.fromJson(responseBody, UserData::class.java)
-
-                    onComplete(readData)
+                    readData = gson.fromJson(responseBody, UserData::class.java)
                 } else {
                     println("컨텐츠 불러오기 Error: ${response.code} ${response.message}")
                     throw Exception("getUserInfo() failed")
@@ -185,11 +184,15 @@ class Client(private val cookie: Cookie) {
                 withContext(Dispatchers.Main) {
                     println("Exception: ${e.message}")
                 }
+            } finally {
+                onComplete(readData)
             }
         }
     }
 
-    fun getContent(onComplete: (ContentData) -> Unit, category: String) {
+    fun getContent(onComplete: (ContentData?) -> Unit, category: String) {
+        var readData: ContentData? = null
+
         val request = Request.Builder()
             .url("https://port-0-drizzling-backend-4c7jj2blhhwli58.sel4.cloudtype.app/quiz/get/" + category)
             .build()
@@ -201,10 +204,7 @@ class Client(private val cookie: Cookie) {
 
                 if (response.isSuccessful && responseBody != null) {
                     val gson = Gson()
-                    val readData: ContentData =
-                        gson.fromJson(responseBody, ContentData::class.java)
-
-                    onComplete(readData)
+                    readData = gson.fromJson(responseBody, ContentData::class.java)
                 } else {
                     println("컨텐츠 불러오기 Error: ${response.code} ${response.message}")
                     throw Exception("getContent() failed")
@@ -213,11 +213,15 @@ class Client(private val cookie: Cookie) {
                 withContext(Dispatchers.Main) {
                     println("Exception: ${e.message}")
                 }
+            } finally {
+                onComplete(readData)
             }
         }
     }
 
-    fun checkLearningStatus(onComplete: (Boolean) -> Unit) {
+    fun checkLearningStatus(onComplete: (Boolean?) -> Unit) {
+        var learningStatus: Boolean? = null
+
         val request = Request.Builder()
             .url("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app/reportCheck")
             .get()
@@ -229,10 +233,8 @@ class Client(private val cookie: Cookie) {
                 val responseBody = response.body?.string()
 
                 if (response.isSuccessful && responseBody != null) {
-                    val learningStatus = responseBody.toBoolean()
+                    learningStatus = responseBody.toBoolean()
                     println("learning status: " + learningStatus.toString())
-
-                    onComplete(learningStatus)
                 } else {
                     println("컨텐츠 학습 여부 확인 Error: ${response.code} ${response.message}")
                     throw Exception("checkLearningStatus() failed")
@@ -241,11 +243,15 @@ class Client(private val cookie: Cookie) {
                 withContext(Dispatchers.Main) {
                     println("Exception: ${e.message}")
                 }
+            } finally {
+                onComplete(learningStatus)
             }
         }
     }
 
     fun leaningComplete(onComplete: (Boolean) -> Unit) {
+        var sumbitSuccess: Boolean = false
+
         val requestBody = JSONObject().apply {
         }.toString().toRequestBody("application/json".toMediaType())
 
@@ -264,18 +270,17 @@ class Client(private val cookie: Cookie) {
                     println(result)
 
                     if (result.equals("update success"))
-                        onComplete(true)
-                    else
-                        onComplete(false)
+                        sumbitSuccess = true
                 } else {
                     println("학습 완료 등록 Error: ${response.code} ${response.message}")
                     throw Exception("learningComplete() failed")
-                    onComplete(false)
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     println("Exception: ${e.message}")
                 }
+            } finally {
+                onComplete(sumbitSuccess)
             }
         }
     }
