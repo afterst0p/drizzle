@@ -28,7 +28,7 @@ class SignInActivity : AppCompatActivity() {
             client.login({ result ->
                 if(result.equals("login success")){
                     println("로그인 성공")
-                    val intent = Intent(this, TodaysContentActivity::class.java)
+                                        val intent = Intent(this, TodaysContentActivity::class.java)
                     startActivity(intent)
                 }
                 else{

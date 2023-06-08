@@ -13,10 +13,12 @@ import android.provider.Settings
 import android.util.Log
 import android.widget.Button
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 
 class MainActivity : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         //val cookieManager = (applicationContext as Cookie).cookieManager
         //val cookie = Cookie()
@@ -39,7 +41,6 @@ class MainActivity : AppCompatActivity() {
 
         if (isNotificationPermissionGranted(this) == false)
             requestNotificationPermission(this)
-
     }
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onResume() {

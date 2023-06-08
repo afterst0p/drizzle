@@ -55,9 +55,12 @@ class TodaysContentActivity : AppCompatActivity() {
         val viewCheckAnswerButton = findViewById<Button>(R.id.view_check_answer)
         val viewContentConstraint = findViewById<ConstraintLayout>(R.id.view_content_constraint)
 
-                //val cookieManager = (applicationContext as Cookie).cookieManager
         val cookie = Cookie()
         val client = Client(cookie);
+
+        // 컨텐츠 갱신 알림 설정
+        val updateNotification = UpdateNotification(this)
+        updateNotification.schedule(0, 0)
 
         // Quiz 라디오 버튼 Listener
         viewSelectionGroup.setOnCheckedChangeListener { group, checkedId ->
@@ -219,6 +222,11 @@ class TodaysContentActivity : AppCompatActivity() {
                 val cookie = Cookie()
                 val client = Client(cookie);
                 client.logout(this@TodaysContentActivity)
+
+                // 컨텐츠 갱신 알림 해제
+                val updateNotification = UpdateNotification(this)
+                updateNotification.cancel()
+
                 finish()
             }
         }
