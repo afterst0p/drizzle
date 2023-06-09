@@ -28,7 +28,12 @@ class SignInActivity : AppCompatActivity() {
             client.login({ result ->
                 if(result.equals("login success")){
                     println("로그인 성공")
-                                        val intent = Intent(this, TodaysContentActivity::class.java)
+
+                    // 컨텐츠 갱신 알림 설정
+                    val updateNotification = UpdateNotification(this)
+                    updateNotification.schedule(0, 0)
+
+                    val intent = Intent(this, TodaysContentActivity::class.java)
                     startActivity(intent)
                 }
                 else{

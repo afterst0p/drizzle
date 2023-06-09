@@ -58,10 +58,6 @@ class TodaysContentActivity : AppCompatActivity() {
         val cookie = Cookie()
         val client = Client(cookie);
 
-        // 컨텐츠 갱신 알림 설정
-        val updateNotification = UpdateNotification(this)
-        updateNotification.schedule(0, 0)
-
         // Quiz 라디오 버튼 Listener
         viewSelectionGroup.setOnCheckedChangeListener { group, checkedId ->
             val selectedRadioButton = findViewById<RadioButton>(checkedId)
