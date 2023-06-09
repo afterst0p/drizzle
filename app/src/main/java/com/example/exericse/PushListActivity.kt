@@ -194,7 +194,7 @@ class PushListAdapter (private val itemList: ArrayList<PushItem>, private val us
 
             val pushMsg = JSONObject()
             val testMsg = JSONObject()
-            pushMsg.put("sendTo", itemList[position].userid)
+            pushMsg.put("sendTo", itemList[position].name)
 
             val myID = userNickname // 임시로 사용한 ID    //이걸 내 id로 바꾸면 됨
             pushMsg.put("sendFrom", myID)
