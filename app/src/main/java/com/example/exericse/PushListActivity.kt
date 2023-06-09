@@ -79,6 +79,18 @@ class PushListActivity : ComponentActivity() {
         pushList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
     }
+
+    private fun connectToServer() {  //수정필요
+        val options =  IO.Options()
+        options.forceNew = true
+
+        val serverUrl = "https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app"
+
+        mSocket = IO.socket(serverUrl, options)
+        setupSocketListeners()
+
+        mSocket.connect()
+    }
 }
 
 
@@ -116,17 +128,5 @@ class PushListAdapter (private val itemList: ArrayList<PushItem>) :
     inner class PushListHolder(itemView:View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById<TextView>(R.id.name)
         val pushButton: Button = itemView.findViewById<Button>(R.id.button)
-    }
-
-    private fun connectToServer() {  //수정필요
-        val options =  IO.Options()
-        options.forceNew = true
-
-        val serverUrl = "https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app"
-
-        mSocket = IO.socket(serverUrl, options)
-        setupSocketListeners()
-
-        mSocket.connect()
     }
 }
