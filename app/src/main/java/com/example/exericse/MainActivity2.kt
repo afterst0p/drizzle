@@ -32,12 +32,22 @@ class MainActivity2 : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         connectToServer()
+
         setContentView(R.layout.fragment_chat)
         val sendButton = findViewById<Button>(R.id.sendButton)
-
         // 닉네임 가져오기
+        val textView = findViewById<TextView>(R.id.textView)
+        //상단 주제 표시
         val cookie = Cookie()
         val client = Client(cookie);
+        client.getTopic({ result ->
+            println(result)
+            if (result != null) {
+                runOnUiThread {
+                    textView.text = result
+                }
+            }
+        }, this)
         client.getUserInfo(this@MainActivity2, { userData ->
             if (userData != null) {
                 userNickname = userData.nickName

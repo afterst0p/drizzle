@@ -31,7 +31,46 @@ class Client(private val cookie: Cookie) {
         val selection4: String,
         val answer: Int
     )
+    data class TopicData(
+        val topic: String
+    )
+    fun getTopic( onComplete: (String) -> Unit, context: Context) {
+        val loadedCookie = cookie.loadCookie(context, "https://port-0-drizzling-backend-4c7jj2blhhwli58.sel4.cloudtype.app/topic/get")
+        val request = Request.Builder()
+            .url("https://port-0-drizzling-backend-4c7jj2blhhwli58.sel4.cloudtype.app/topic/get")
+            .addHeader("Cookie", loadedCookie.toString())
+            .get()
+            .build()
+        coroutineScope.launch(Dispatchers.IO) {
+            try {
+                val response = client.newCall(request).execute()
 
+                if (response.isSuccessful) {
+                    val responseData = response.body?.string()
+                    val gson = Gson()
+                    val readData = gson.fromJson(responseData, TopicData::class.java)
+
+                    result = readData.topic ?: ""
+
+
+                } else {
+                    // 오류 처리
+                    result = "getTopic error"
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            val cookies = cookie.getCookie("https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app")
+            cookies.forEach { httpCookie ->
+                cookie.saveCookie(
+                    context,
+                    "https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app",
+                    httpCookie
+                )
+            }
+            onComplete(result)
+        }
+    }
     fun loginCheck( onComplete: (String) -> Unit, context: Context) {
         val loadedCookie = cookie.loadCookie(context, "https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app")
         val request = Request.Builder()

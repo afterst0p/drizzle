@@ -7,6 +7,13 @@
     tools:context=".MainActivity2"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="상단에 표시될 텍스트"
+        android:id="@+id/textView"
+        android:gravity="top"/>
+
     <ScrollView
         android:id="@+id/chattingScroll"
         android:layout_width="match_parent"
