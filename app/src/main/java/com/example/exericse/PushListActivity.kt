@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import io.socket.client.IO
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -30,6 +31,8 @@ class PushListActivity : ComponentActivity() {
         val pushList = findViewById<RecyclerView>(R.id.pushList)
 
         val itemList = ArrayList<PushItem>()
+
+        connectToServer() //수정필요
 
         var userDataJson : String
         try {           //유저 리스트 가져오는 부분
@@ -113,5 +116,17 @@ class PushListAdapter (private val itemList: ArrayList<PushItem>) :
     inner class PushListHolder(itemView:View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById<TextView>(R.id.name)
         val pushButton: Button = itemView.findViewById<Button>(R.id.button)
+    }
+
+    private fun connectToServer() {  //수정필요
+        val options =  IO.Options()
+        options.forceNew = true
+
+        val serverUrl = "https://port-0-softwareengineering-e9btb72mlh4lnrto.sel4.cloudtype.app"
+
+        mSocket = IO.socket(serverUrl, options)
+        setupSocketListeners()
+
+        mSocket.connect()
     }
 }
