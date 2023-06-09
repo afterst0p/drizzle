@@ -2,11 +2,6 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/action_content"
-        android:icon="@drawable/ic_launcher_foreground"
-        android:title="컨텐츠 보기"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_chat"
         android:icon="@drawable/ic_launcher_foreground"
         android:title="채팅방 열기"

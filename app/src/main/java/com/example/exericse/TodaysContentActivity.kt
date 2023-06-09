@@ -7,30 +7,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
-import android.view.animation.AlphaAnimation
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-import com.example.exericse.MainActivity2
-import com.google.gson.Gson
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
-import okhttp3.Response
-import org.json.JSONObject
-import java.io.IOException
 
 
 class TodaysContentActivity : AppCompatActivity() {
@@ -116,7 +98,7 @@ class TodaysContentActivity : AppCompatActivity() {
         }
 
         // 유저 정보 불러오기
-        client.getUserInfo(this@TodaysContentActivity, { userData ->
+        client.getUserInfo(this@TodaysContentActivity) { userData ->
             runOnUiThread {
                 if (userData == null) {
                     Toast.makeText(
@@ -148,45 +130,51 @@ class TodaysContentActivity : AppCompatActivity() {
                                 quizAnswer = contentData.answer
 
                                 // 사용자 컨텐츠 학습 여부 확인
-                                client.checkLearningStatus(this@TodaysContentActivity, { learningStatus ->
-                                    runOnUiThread {
-                                        if (learningStatus == null) {
-                                            Toast.makeText(
-                                                this@TodaysContentActivity,
-                                                " 학습 상태 불러오기에 실패하였습니다.\n앱을 재시작 해주세요.",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                        } else if (learningStatus == true) {
-                                            viewCheckAnswerButton.text = "학습 완료"
-                                            println(quizAnswer.toString())
-                                            when (quizAnswer) {
-                                                1 -> viewSelection1.isChecked = true
-                                                2 -> viewSelection2.isChecked = true
-                                                3 -> viewSelection3.isChecked = true
-                                                4 -> viewSelection4.isChecked = true
-                                            }
-                                            viewCheckAnswerButton.isEnabled = false
-                                            viewSelection1.isEnabled = false
-                                            viewSelection2.isEnabled = false
-                                            viewSelection3.isEnabled = false
-                                            viewSelection4.isEnabled = false
+                                client.checkLearningStatus(
+                                    this@TodaysContentActivity,
+                                    { learningStatus ->
+                                        runOnUiThread {
+                                            if (learningStatus == null) {
+                                                Toast.makeText(
+                                                    this@TodaysContentActivity,
+                                                    " 학습 상태 불러오기에 실패하였습니다.\n앱을 재시작 해주세요.",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            } else if (learningStatus == true) {
+                                                viewCheckAnswerButton.text = "학습 완료"
+                                                println(quizAnswer.toString())
+                                                when (quizAnswer) {
+                                                    1 -> viewSelection1.isChecked = true
+                                                    2 -> viewSelection2.isChecked = true
+                                                    3 -> viewSelection3.isChecked = true
+                                                    4 -> viewSelection4.isChecked = true
+                                                }
+                                                viewCheckAnswerButton.isEnabled = false
+                                                viewSelection1.isEnabled = false
+                                                viewSelection2.isEnabled = false
+                                                viewSelection3.isEnabled = false
+                                                viewSelection4.isEnabled = false
 
-                                            viewContentConstraint.alpha = 0f
-                                            viewContentConstraint.visibility = ConstraintLayout.VISIBLE
-                                            viewContentConstraint.animate().alpha(1f).duration = 150
-                                        } else {
-                                            viewContentConstraint.alpha = 0f
-                                            viewContentConstraint.visibility = ConstraintLayout.VISIBLE
-                                            viewContentConstraint.animate().alpha(1f).duration = 150
+                                                viewContentConstraint.alpha = 0f
+                                                viewContentConstraint.visibility =
+                                                    ConstraintLayout.VISIBLE
+                                                viewContentConstraint.animate().alpha(1f).duration =
+                                                    150
+                                            } else {
+                                                viewContentConstraint.alpha = 0f
+                                                viewContentConstraint.visibility =
+                                                    ConstraintLayout.VISIBLE
+                                                viewContentConstraint.animate().alpha(1f).duration =
+                                                    150
+                                            }
                                         }
-                                    }
-                                }) // 사용자 컨텐츠 학습 여부 확인
+                                    }) // 사용자 컨텐츠 학습 여부 확인
                             }
                         }
                     }, userCategory) // 컨텐츠 정보 불러오기
                 }
             }
-        }) // 유저 정보 불러오기
+        } // 유저 정보 불러오기
     }
 
     override fun onBackPressed() {
@@ -212,6 +200,10 @@ class TodaysContentActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.action_chat -> {
                 val intent = Intent(this, MainActivity2::class.java)
+                startActivity(intent)
+            }
+            R.id.action_push -> {
+                val intent = Intent(this, PushListActivity::class.java)
                 startActivity(intent)
             }
             R.id.action_logout -> {

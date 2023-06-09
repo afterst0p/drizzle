@@ -1,12 +1,12 @@
 import android.content.Context
 import com.example.exericse.Cookie
+import com.example.exericse.MainActivity2
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
-import java.net.CookieManager
 
 
 class Client(private val cookie: Cookie) {

@@ -12,10 +12,8 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 
-import com.example.exericse.R
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
@@ -48,12 +46,12 @@ class MainActivity2 : ComponentActivity() {
                 }
             }
         }, this)
-        client.getUserInfo(this@MainActivity2, { userData ->
+        client.getUserInfo(this@MainActivity2) { userData ->
             if (userData != null) {
                 userNickname = userData.nickName
 
             }
-        })
+        }
 
         // 메시지 보내기
         sendButton.setOnClickListener{
