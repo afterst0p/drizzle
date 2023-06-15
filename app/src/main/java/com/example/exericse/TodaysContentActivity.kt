@@ -204,6 +204,9 @@ class TodaysContentActivity : AppCompatActivity() {
             }
             R.id.action_push -> {
                 val intent = Intent(this, PushListActivity::class.java)
+                var getIntent:Intent = getIntent();
+                var text = getIntent.getStringExtra("nickName");
+                intent.putExtra("nickName", text);
                 startActivity(intent)
             }
             R.id.action_logout -> {

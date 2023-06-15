@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
             if (!result.equals("not login")) {
                 println("로그인 성공")
                 val intent = Intent(this, TodaysContentActivity::class.java)
+                intent.putExtra("nickName", result);
                 startActivity(intent)
             } else {
                 println("로그인 실패")

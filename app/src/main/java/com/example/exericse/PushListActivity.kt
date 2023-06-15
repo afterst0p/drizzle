@@ -44,13 +44,17 @@ class PushListActivity : ComponentActivity() {
         setContentView(R.layout.activity_push_list)
         val cookie = Cookie()
         val client = Client(cookie);
-        client.getUserInfo(this@PushListActivity) { userData ->
-            if (userData != null) {
-                userNickname = userData.nickName
-
-            }
-            connectToServer()
-        }
+//        client.getUserInfo(this@PushListActivity) { userData ->
+//            if (userData != null) {
+//                userNickname = userData.nickName
+//
+//            }
+//            connectToServer()
+//        }
+        var get:Intent = getIntent()
+        userNickname = get.getStringExtra("nickName") as String
+        Log.d("nickName", userNickname);
+        connectToServer()
         val pushList = findViewById<RecyclerView>(R.id.pushList)
 
         val itemList = ArrayList<PushItem>()
