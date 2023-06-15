@@ -30,10 +30,13 @@
 
             <TextView
                 android:id="@+id/view_content"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
                 android:text="Content MainText"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view_title" />
@@ -47,7 +50,7 @@
                 android:layout_marginEnd="40dp"
                 android:gravity="start"
                 android:text="Quiz"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view_content" />
@@ -68,28 +71,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="Selection 1" />
+                    android:text="Selection 1"
+                    android:textSize="18sp"/>
 
                 <RadioButton
                     android:id="@+id/view_selection2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="Selection 2" />
+                    android:text="Selection 2"
+                    android:textSize="18sp"/>
 
                 <RadioButton
                     android:id="@+id/view_selection3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="Selection 3" />
+                    android:text="Selection 3"
+                    android:textSize="18sp"/>
 
                 <RadioButton
                     android:id="@+id/view_selection4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="Selection 4" />
+                    android:text="Selection 4"
+                    android:textSize="18sp"/>
 
             </RadioGroup>
 
