@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.SystemClock.sleep
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -218,6 +219,9 @@ class TodaysContentActivity : AppCompatActivity() {
                 // 컨텐츠 갱신 알림 해제
                 val updateNotification = UpdateNotification(this)
                 updateNotification.cancel()
+
+                // 로그아웃, 알림 해제 대기
+                sleep(500)
 
                 finish()
             }
