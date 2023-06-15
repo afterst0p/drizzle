@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 
 class TodaysContentActivity : AppCompatActivity() {
     private var backPressedOnce = false
+    private var userNickname: String = "닉네임"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,6 +109,7 @@ class TodaysContentActivity : AppCompatActivity() {
                     ).show()
                 } else {
                     userCategory = userData.category
+                    userNickname = userData.nickName
                     println(userCategory)
 
                     // 컨텐츠 정보 불러오기
@@ -205,8 +207,7 @@ class TodaysContentActivity : AppCompatActivity() {
             R.id.action_push -> {
                 val intent = Intent(this, PushListActivity::class.java)
                 var getIntent:Intent = getIntent();
-                var text = getIntent.getStringExtra("nickName");
-                intent.putExtra("nickName", text);
+                intent.putExtra("nickName", userNickname);
                 startActivity(intent)
             }
             R.id.action_logout -> {
