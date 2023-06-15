@@ -58,7 +58,7 @@ class UpdateNotification(private val context: Context) {
         )
 
         val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_notification)
+            .setSmallIcon(R.drawable.drizzle_icon)
             .setContentTitle("지식 컨텐츠 갱신")
             .setContentText("새로운 지식을 습득하세요!")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
