@@ -15,7 +15,7 @@ import com.example.exericse.R
 import java.text.SimpleDateFormat
 import java.util.*
 
-class TimeService : Service() {
+class TimeService : Service() { // 알림이 동작하는지 테스트용
 
     private val CHANNEL_ID = "TimeServiceChannel"
     private val NOTIFICATION_ID = 1
@@ -39,7 +39,7 @@ class TimeService : Service() {
         createNotificationChannel()
         notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Time Service")
-            .setSmallIcon(R.drawable.ic_notification)
+            .setSmallIcon(R.drawable.drizzle_icon)
         startForeground(NOTIFICATION_ID, notificationBuilder.build())
         handler.post(runnable)
     }

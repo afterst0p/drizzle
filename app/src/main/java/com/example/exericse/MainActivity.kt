@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         val client = Client(cookie)
 
         //val timeWorkRequest = OneTimeWorkRequestBuilder<Worker>().build()
-        val timeService = Intent(this, TimeService::class.java)
+        //val timeService = Intent(this, TimeService::class.java)
         super.onResume()
 
         client.loginCheck({ result ->
@@ -65,8 +65,8 @@ class MainActivity : AppCompatActivity() {
         }, this)
 
         //WorkManager.getInstance(this).enqueue(timeWorkRequest)
-        Log.d("TimeService", "startForegroundService")
-        startForegroundService(timeService)
+        //Log.d("TimeService", "startForegroundService")
+        //startForegroundService(timeService)
     }
 
     fun isNotificationPermissionGranted(context: Context): Boolean {

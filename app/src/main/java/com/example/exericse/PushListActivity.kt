@@ -162,7 +162,7 @@ class PushListActivity : ComponentActivity() {
         val builder = NotificationCompat.Builder(context, channelId)
             .setContentTitle("알림")
             .setContentText(message + "께서 꾹 찔렀습니다.")
-            .setSmallIcon(R.drawable.notification_icon)
+            .setSmallIcon(R.drawable.drizzle_icon)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
 
