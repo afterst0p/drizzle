@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 
 class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +38,9 @@ class SignInActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 else{
+                    runOnUiThread{
+                        Toast.makeText(this, "아이디 또는 비밀번호가 올바르지 않습니다.", Toast.LENGTH_SHORT).show()
+                    }
                     println(result)
                 }
             }, this, id, password)
